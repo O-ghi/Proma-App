@@ -51,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button buttonAddStore = findViewById(R.id.buttonAddStore);
+        buttonAddStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Switch to the Add Store page
+                Intent intent = new Intent(MainActivity.this, AddStoreActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -75,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     // Handle failure
                 });
     }
+
     private void navigateToUserPage() {
         Intent userPageIntent = new Intent(this, UserActivity.class);
         startActivity(userPageIntent);

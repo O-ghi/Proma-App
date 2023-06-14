@@ -49,6 +49,8 @@
             android:name=".AddProductActivity"
             android:label="Register Page">
         </activity>
+        <activity android:name=".AddStoreActivity" />
+
     </application>
 
 </manifest>

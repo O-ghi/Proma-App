@@ -25,26 +25,26 @@
         tools:text="email@example.com" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
 
         <ImageView
             android:id="@+id/editIcon"
-            android:layout_width="62dp"
-            android:layout_height="53dp"
-            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/usericon"
             android:contentDescription="Edit User Info"
-            android:onClick="navigateToUserPage"
-            android:src="@drawable/usericon" />
+            android:clickable="true"
+            android:onClick="navigateToUserPage" />
 
         <ImageView
             android:id="@+id/incompleteIcon"
-            android:layout_width="25dp"
-            android:layout_height="29dp"
-            android:contentDescription="Incomplete Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_stat_name"
+            android:contentDescription="Incomplete Info"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -53,5 +53,14 @@
         android:id="@+id/buttonAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Product" />
+        android:text="Add Product"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/buttonAddStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Store"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
