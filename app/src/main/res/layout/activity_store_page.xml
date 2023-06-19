@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".StorePageActivity">
+
+    <ListView
+        android:id="@+id/lvStoreList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_above="@+id/btnAddStore" />
+
+    <TextView
+        android:id="@+id/tvNoStore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You don't have any stores yet."
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnAddStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Store"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

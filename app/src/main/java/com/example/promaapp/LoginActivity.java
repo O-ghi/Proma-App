@@ -102,6 +102,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         if (task.isSuccessful()) {
                             // Login successful
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                            // Start the StoreActivity
+                            Intent intent = new Intent(LoginActivity.this, StorePageActivity.class);
+                            startActivity(intent);
+                            finish(); // Optional: Finish the LoginActivity to prevent going back
                         } else {
                             // Login failed
                             Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
@@ -144,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             // Google sign-in/authenticate successful
                             Toast.makeText(LoginActivity.this, "Google sign-in/authenticate successful", Toast.LENGTH_SHORT).show();
                             saveUserInfoToFirestore(acct);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, StorePageActivity.class);
                             startActivity(intent);
                             finish(); // Optional: Finish the LoginActivity to prevent going back
                         } else {
