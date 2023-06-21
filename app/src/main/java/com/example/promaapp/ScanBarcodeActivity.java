@@ -128,6 +128,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         }
 
         final String scannedCode = result.getText();
+        Log.d("handleDecode", "check " + scannedCode);
 
         checkIfIdExists(scannedCode);
 
@@ -156,7 +157,8 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                     } else {
                         // ID doesn't exist, show add button
                         Log.d("Scanner", "onComplete: ID doesn't exist");
-                        addButton.setVisibility(View.VISIBLE);
+
+                        navigateToAddProduct(scannedCode, storeId);
                     }
                 } else {
                     Log.d("Scanner", "Error getting document: " + task.getException());

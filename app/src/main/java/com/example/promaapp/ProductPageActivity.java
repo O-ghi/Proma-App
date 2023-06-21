@@ -3,6 +3,7 @@ package com.example.promaapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -60,6 +61,26 @@ public class ProductPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Handle item click on the product list
+        lvProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected product
+                Product product = productList.get(position);
+
+                // Start ProductDetailActivity and pass the product details
+                Intent intent = new Intent(ProductPageActivity.this, ProductDetailActivity.class);
+                intent.putExtra("productId", product.getId());
+                intent.putExtra("storeId", product.getStoreId());
+                intent.putExtra("productName", product.getName());
+                intent.putExtra("productPrice", product.getPrice());
+                intent.putExtra("productQuantity", product.getQuantity());
+                intent.putExtra("imageUrl", product.getImage());
+                intent.putExtra("expiry", product.getExpiry());
+                startActivity(intent);
+            }
+        });
     }
 
     private void retrieveProductsForStore(String storeId) {
@@ -81,8 +102,9 @@ public class ProductPageActivity extends AppCompatActivity {
                                 String productName = document.getString("name");
                                 double productPrice = document.getDouble("price");
                                 int productQuantity = Math.toIntExact(document.getLong("quantity"));
-
-                                Product product = new Product(productId, storeId, productName, productPrice, productQuantity);
+                                String imageURL = document.getString("image");
+                                String expiry = document.getString("expiry");
+                                Product product = new Product(productId, storeId, productName, productPrice, productQuantity,imageURL,expiry);
                                 productList.add(product);
                             }
 
@@ -94,5 +116,4 @@ public class ProductPageActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

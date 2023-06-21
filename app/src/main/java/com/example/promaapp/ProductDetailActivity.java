@@ -1,62 +1,48 @@
 package com.example.promaapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import com.squareup.picasso.Picasso;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    private TextView tvId, tvName, tvPrice, tvQuantity;
+    private ImageView imageViewProduct;
+    private TextView textViewProductName;
+    private TextView textViewProductPrice;
+    private TextView textViewProductQuantity;
+    private TextView textViewProductExpiry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail_activity);
 
-        tvId = findViewById(R.id.tv_id);
-        tvName = findViewById(R.id.tv_name);
-        tvPrice = findViewById(R.id.tv_price);
-        tvQuantity = findViewById(R.id.tv_quantity);
+        // Retrieve the product details from the intent
+        String productName = getIntent().getStringExtra("productName");
+        double productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
+        int productQuantity = getIntent().getIntExtra("productQuantity", 0);
+        String imageUrl = getIntent().getStringExtra("imageUrl");
+        String expiry = getIntent().getStringExtra("expiry");
+        Log.d("imageUrl", "check " + imageUrl);
 
-        // Retrieve the product ID from the intent
-        String productId = getIntent().getStringExtra("productId");
+        // Initialize views
+        imageViewProduct = findViewById(R.id.imageViewProduct);
+        textViewProductName = findViewById(R.id.textViewProductName);
+        textViewProductPrice = findViewById(R.id.textViewProductPrice);
+        textViewProductQuantity = findViewById(R.id.textViewProductQuantity);
+        textViewProductExpiry = findViewById(R.id.textViewProductExpiry);
 
-        // Retrieve the product information from Firestore based on the ID
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("products").document(productId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        // Retrieve the product details from the document
-                        String name = document.getString("name");
-                        double price = document.getDouble("price");
-                        int quantity = document.getLong("total").intValue();
-
-                        // Set the product details in the TextViews
-                        tvId.setText(productId);
-                        tvName.setText(name);
-                        tvPrice.setText(String.valueOf(price));
-                        tvQuantity.setText(String.valueOf(quantity));
-                    } else {
-                        Log.d("ProductDetailActivity", "No such document");
-                    }
-                } else {
-                    Log.d("ProductDetailActivity", "get failed with " + task.getException());
-                }
-            }
-        });
+        // Set the product details
+        textViewProductName.setText("Tên sản phẩm: " + productName);
+        textViewProductPrice.setText("Giá: " + String.format("Price: $%.2f", productPrice));
+        textViewProductQuantity.setText("Tổng số lượng: " + String.format("Quantity: %d", productQuantity));
+        textViewProductExpiry.setText("Hạn sử dụng: " + expiry);
+        // Load and display the product image using Picasso
+        Picasso.get().load(imageUrl).into(imageViewProduct);
     }
 }

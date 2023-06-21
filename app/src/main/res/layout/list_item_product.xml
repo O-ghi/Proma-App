@@ -1,28 +1,63 @@
-<!-- list_item_product.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp"
+    android:background="@drawable/product_background">
+
+    <ImageView
+        android:id="@+id/productImageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/error_image" />
+
+    <LinearLayout
+        android:id="@+id/productDetailsLayout"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_toRightOf="@id/productImageView"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/productNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/productPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/productQuantityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tvProductName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvProductExpiry"
+        android:layout_width="107dp"
+        android:layout_height="64dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="4dp"
+        android:text="HSD"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvProductPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/tvProductDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
-</LinearLayout>
+</RelativeLayout>

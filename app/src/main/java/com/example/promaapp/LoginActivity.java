@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,11 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private EditText etEmail, etPassword;
-    private Button btnLogin, btnSwitchToRegister, btnGoogle;
+    private TextView tvRegister;
+
+    private Button btnLogin;
+    private ImageView btnGoogle;
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
@@ -54,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSwitchToRegister = findViewById(R.id.btnSwitchToRegister);
+        tvRegister = findViewById(R.id.tvRegister);
         btnGoogle = findViewById(R.id.btnGoogle);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        btnSwitchToRegister.setOnClickListener(new View.OnClickListener() {
+        tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Switch to RegisterActivity

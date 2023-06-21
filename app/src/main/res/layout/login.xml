@@ -1,43 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".LoginActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="187dp"
+        android:layout_gravity="top"
+        app:srcCompat="@mipmap/ic_banner_foreground" />
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="#95000000"
+        android:textCursorDrawable="@color/black"
+        android:textSize="18dp"
+        app:backgroundTint="@color/black" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textColorHint="#95000000"
+        android:textCursorDrawable="@color/black"
+        android:textSize="18dp"
+        app:backgroundTint="@color/black" />
+
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:background="@drawable/login_button_background"
+        android:text="Đăng Nhập"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="#0091E4" />
 
-    <Button
-        android:id="@+id/btnSwitchToRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch to Register" />
-
-    <Button
+    <ImageView
         android:id="@+id/btnGoogle"
+        android:layout_width="71dp"
+        android:layout_height="63dp"
+        android:clickable="true"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:src="@drawable/googleicon"
+        app:backgroundTint="#000000" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register/Login with Google" />
+        android:clickable="true"
+        android:padding="4dp"
+        android:text="hoặc"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Đăng ký"
+        android:textColor="#0090E3"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

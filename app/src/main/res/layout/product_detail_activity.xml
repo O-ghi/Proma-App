@@ -1,39 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/error_image" />
 
     <TextView
-        android:id="@+id/tv_id"
+        android:id="@+id/textViewProductName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold"
-        tools:text="Product ID" />
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_id"
+        android:layout_below="@id/imageViewProduct"
         android:layout_marginTop="16dp"
-        tools:text="Product Name" />
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tv_price"
+        android:id="@+id/textViewProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name"
-        android:layout_marginTop="16dp"
-        tools:text="Product Price" />
+        android:layout_below="@id/textViewProductName"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_quantity"
+        android:id="@+id/textViewProductQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_price"
-        android:layout_marginTop="16dp"
-        tools:text="Product Quantity" />
+        android:layout_below="@id/textViewProductPrice"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/textViewProductExpiry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewProductQuantity"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp" />
 </RelativeLayout>

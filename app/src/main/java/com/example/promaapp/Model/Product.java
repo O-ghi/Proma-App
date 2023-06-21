@@ -6,12 +6,32 @@ public class Product {
     private String name;
     private double price;
     private int quantity;
+    private String image;
+    private String expiry;
 
     public Product() {
         // Empty constructor needed for Firebase Realtime Database
     }
 
-    public Product(String id, String storeId,String name, double price, int quantity) {
+
+    public Product(String id, String storeId, String name, double price, int quantity, String image) {
+        this.id = id;
+        this.storeId = storeId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.image = image;
+    }
+    public Product(String id, String storeId, String name, double price, int quantity, String image, String expiry) {
+        this.id = id;
+        this.storeId = storeId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.image = image;
+        this.expiry = expiry;
+    }
+    public Product(String id, String storeId, String name, double price, int quantity) {
         this.id = id;
         this.storeId = storeId;
         this.name = name;
@@ -59,11 +79,18 @@ public class Product {
         this.price = price;
     }
 
-    public int getTotal() {
-        return quantity;
+    public String getImage() {
+        return image;
     }
 
-    public void setTotal(int quantity) {
-        this.quantity = quantity;
+    public void setImage(String image) {
+        this.image = image;
+    }
+    public String getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(String expiry) {
+        this.expiry = expiry;
     }
 }

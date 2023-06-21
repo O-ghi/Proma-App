@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,9 +10,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primaryTextColor"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:backgroundTint="#0091E4"/>
+
     <EditText
         android:id="@+id/et_id"
         android:layout_width="match_parent"
@@ -23,25 +25,59 @@
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="Tên sản phẩm" />
 
     <EditText
         android:id="@+id/et_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price" />
+        android:hint="Giá tiền" />
 
     <EditText
         android:id="@+id/et_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Quantity" />
+        android:hint="Số lượng" />
+
+    <EditText
+        android:id="@+id/et_expiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hạn sử dụng"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog" />
+
+    <Button
+        android:id="@+id/btn_select_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/login_button_background"
+        android:text="Chọn hình ảnh"
+        android:textColor="#3F51B5"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
+
+    <ImageView
+        android:id="@+id/iv_product_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Save" />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/login_button_background"
+        android:text="Lưu"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:backgroundTint="#0091E4" />
 
 </LinearLayout>

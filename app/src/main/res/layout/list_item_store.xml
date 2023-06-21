@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/product_background"
     android:padding="16dp">
 
     <TextView
@@ -12,8 +14,11 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="left"
         android:text="1231"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        />
 
     <TextView
         android:id="@+id/storeAddressTextView"
@@ -21,6 +26,9 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="left"
         android:text="123"
-        android:textSize="14sp" />
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        />
 
 </LinearLayout>
