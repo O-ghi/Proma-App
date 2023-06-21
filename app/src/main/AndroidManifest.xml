@@ -51,6 +51,7 @@
         </activity>
         <activity android:name=".AddStoreActivity" />
         <activity android:name=".StorePageActivity" />
+        <activity android:name=".ProductPageActivity" />
 
     </application>
 

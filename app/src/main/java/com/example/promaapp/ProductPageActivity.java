@@ -1,14 +1,23 @@
 package com.example.promaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.promaapp.Model.Product;
 import com.example.promaapp.Model.ProductListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -21,6 +30,7 @@ public class ProductPageActivity extends AppCompatActivity {
     private List<Product> productList;
     private ProductListAdapter productListAdapter;
     private FirebaseFirestore firestore;
+    private Button btnAddProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
         lvProductList = findViewById(R.id.lvProductList);
+        btnAddProduct = findViewById(R.id.btnAddProduct);
 
         // Retrieve the store ID from the intent
         String storeId = getIntent().getStringExtra("storeId");
@@ -39,24 +50,39 @@ public class ProductPageActivity extends AppCompatActivity {
 
         // Retrieve products for the specified store ID
         retrieveProductsForStore(storeId);
+
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start ScanBarcodeActivity and pass the storeId
+                Intent intent = new Intent(ProductPageActivity.this, ScanBarcodeActivity.class);
+                intent.putExtra("storeId", storeId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void retrieveProductsForStore(String storeId) {
-        firestore.collection("Products")
+        firestore.collection("products")
                 .whereEqualTo("storeId", storeId)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot querySnapshot = task.getResult();
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot querySnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            // Error occurred
+                            Toast.makeText(ProductPageActivity.this, "Failed to retrieve products: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         if (querySnapshot != null && !querySnapshot.isEmpty()) {
                             productList.clear();
                             for (QueryDocumentSnapshot document : querySnapshot) {
                                 String productId = document.getId();
                                 String productName = document.getString("name");
                                 double productPrice = document.getDouble("price");
-                                int productQuantity = Math.toIntExact(document.getLong("total"));
+                                int productQuantity = Math.toIntExact(document.getLong("quantity"));
 
-                                Product product = new Product(productId, productName, productPrice, productQuantity);
+                                Product product = new Product(productId, storeId, productName, productPrice, productQuantity);
                                 productList.add(product);
                             }
 
@@ -65,9 +91,8 @@ public class ProductPageActivity extends AppCompatActivity {
                             // No products found for the store
                             Toast.makeText(ProductPageActivity.this, "No products found for the store", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(ProductPageActivity.this, "Failed to retrieve products", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 }

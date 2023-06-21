@@ -1,25 +1,20 @@
 package com.example.promaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.CaptureManager;
@@ -29,21 +24,25 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
+import java.util.UUID;
 
 public class ScanBarcodeActivity extends AppCompatActivity {
 
     private DecoratedBarcodeView barcodeView;
     private CaptureManager captureManager;
     private Button scanButton;
+    private Button addButton;
     private boolean isScanning = true;
-
+    String storeId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scanbarcode);
+         storeId = getIntent().getStringExtra("storeId");
 
         barcodeView = findViewById(R.id.scanner_view);
         scanButton = findViewById(R.id.scan_button);
+        addButton = findViewById(R.id.add_button);
 
         // Create an instance of the CaptureManager to handle scanning
         captureManager = new CaptureManager(this, barcodeView);
@@ -69,7 +68,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                     @Override
                     public void barcodeResult(BarcodeResult result) {
                         isScanning = true;
-
                         handleDecode(result);
                     }
 
@@ -78,6 +76,13 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                         // No need to implement this method for now
                     }
                 });
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateAndNavigateToNewProduct(storeId);
             }
         });
     }
@@ -128,7 +133,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
 
         // Stop scanning after finding a barcode
         isScanning = false;
-
     }
 
     private void checkIfIdExists(final String scannedCode) {
@@ -146,15 +150,13 @@ public class ScanBarcodeActivity extends AppCompatActivity {
                         Log.d("Scanner", "onComplete: ID exists");
                         Intent intent = new Intent(ScanBarcodeActivity.this, ProductDetailActivity.class);
                         intent.putExtra("productId", scannedCode);
+                        intent.putExtra("storeId", storeId);
                         startActivity(intent);
                         finish(); // Optional: Finish the scanner activity after navigating to the product detail page
                     } else {
-                        // ID doesn't exist, navigate to the add product page
+                        // ID doesn't exist, show add button
                         Log.d("Scanner", "onComplete: ID doesn't exist");
-                        Intent intent = new Intent(ScanBarcodeActivity.this, AddProductActivity.class);
-                        intent.putExtra("productId", scannedCode);
-                        startActivity(intent);
-                        finish(); // Optional: Finish the scanner activity after navigating to the add product page
+                        addButton.setVisibility(View.VISIBLE);
                     }
                 } else {
                     Log.d("Scanner", "Error getting document: " + task.getException());
@@ -164,5 +166,41 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         });
     }
 
+    private void generateAndNavigateToNewProduct(final String storeId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference productsRef = db.collection("products");
+
+        generateUniqueProductId(productsRef, storeId);
+    }
+
+    private void generateUniqueProductId(CollectionReference productsRef, final String storeId) {
+        String productId = UUID.randomUUID().toString();
+
+        productsRef.whereEqualTo("productId", productId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (task.getResult().isEmpty()) {
+                        // Product ID is unique
+                        navigateToAddProduct(productId, storeId);
+                    } else {
+                        generateUniqueProductId(productsRef, storeId); // Generate a new ID recursively
+                    }
+                } else {
+                    Log.d("Scanner", "Error checking product ID: " + task.getException());
+                    // Handle the error
+                }
+            }
+        });
+    }
+
+    private void navigateToAddProduct(String productId, String storeId) {
+        // Navigate to the add product page with the generated ID and store ID
+        Intent intent = new Intent(ScanBarcodeActivity.this, AddProductActivity.class);
+        intent.putExtra("productId", productId);
+        intent.putExtra("storeId", storeId);
+        startActivity(intent);
+        finish(); // Optional: Finish the scanner activity after navigating to the add product page
+    }
 
 }

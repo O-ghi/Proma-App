@@ -34,22 +34,54 @@ public class AddProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = FirebaseFirestore.getInstance();
         String productIdString = getIntent().getStringExtra("productId");
+        String storeId = getIntent().getStringExtra("storeId");
 
         etId = findViewById(R.id.et_id);
         etName = findViewById(R.id.et_name);
         etPrice = findViewById(R.id.et_price);
         etQuantity = findViewById(R.id.et_quantity);
         btnSave = findViewById(R.id.btn_save);
-        if (!productIdString.isEmpty()) {
-            etId.setText(productIdString);
-        }
+
+        etId.setText(productIdString);
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveProduct();
+                String productId = etId.getText().toString().trim();
+                String productName = etName.getText().toString().trim();
+                double price = Double.parseDouble(etPrice.getText().toString().trim());
+                int quantity = Integer.parseInt(etQuantity.getText().toString().trim());
+
+                if (productId.isEmpty() || productName.isEmpty() || etPrice.getText().toString().isEmpty() || etQuantity.getText().toString().isEmpty()) {
+                    Toast.makeText(AddProductActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveProduct(productId, productName, price, quantity, storeId);
+                }
             }
         });
     }
+
+    private void saveProduct(String productId, String productName, double price, int quantity, String storeId) {
+        CollectionReference productsRef = db.collection("products");
+
+        Product product = new Product(productId, storeId, productName, price, quantity);
+
+        productsRef.document(productId).set(product)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddProductActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
+                        finish(); // Optional: Finish the add product activity after saving the product
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddProductActivity.this, "Failed to add product", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -58,33 +90,5 @@ public class AddProductActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void saveProduct() {
 
-        String id = etId.getText().toString().trim();
-        String name = etName.getText().toString().trim();
-        double price = Double.parseDouble(etPrice.getText().toString().trim());
-        int quantity = Integer.parseInt(etQuantity.getText().toString().trim());
-
-        // Create a new product object
-        Product product = new Product(id, name, price, quantity);
-
-        // Get the reference to the products collection
-        CollectionReference productsRef = db.collection("products");
-
-        // Add the product to Firestore
-        productsRef.document(id).set(product)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddProductActivity.this, "Product saved successfully", Toast.LENGTH_SHORT).show();
-                        finish(); // Close the activity after saving the product
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddProductActivity.this, "Failed to save product: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }
