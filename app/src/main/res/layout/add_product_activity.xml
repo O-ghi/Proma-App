@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,16 +6,9 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primaryTextColor"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:backgroundTint="#0091E4"/>
 
-    <EditText
+
+        <EditText
         android:id="@+id/et_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,4 +73,19 @@
         android:textStyle="bold"
         app:backgroundTint="#0091E4" />
 
-</LinearLayout>
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="171dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dp"
+            android:text="Trở về"
+            android:textAlignment="textStart"
+            android:textColor="#163249"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/back_arrow"
+            app:iconSize="50dp"
+            app:iconTint="#2196F3" />
+    </LinearLayout>

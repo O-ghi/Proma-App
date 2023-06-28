@@ -68,7 +68,8 @@ public class AddProductActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Enable back button in the toolbar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -120,6 +121,7 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showDatePickerDialog() {
         // Get the current date for initializing the DatePickerDialog
         Calendar calendar = Calendar.getInstance();
