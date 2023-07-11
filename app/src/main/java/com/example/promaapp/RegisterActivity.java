@@ -38,8 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         editTextFullName = findViewById((R.id.editTextFullName));
         editTextAddress = findViewById(R.id.editTextAddress);
-        editTextStoreName = findViewById(R.id.editTextStoreName);
-        editTextStoreAddress = findViewById(R.id.editTextStoreAddress);
         buttonRegister = findViewById(R.id.buttonRegister);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
-        String storeName = editTextStoreName.getText().toString().trim();
-        String storeAddress = editTextStoreAddress.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_SHORT).show();
@@ -89,15 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(storeName)) {
-            Toast.makeText(getApplicationContext(), "Please enter store name", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(storeAddress)) {
-            Toast.makeText(getApplicationContext(), "Please enter store address", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -106,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             String userId = mAuth.getCurrentUser().getUid();
                             // Create a new user document in Firestore
-                            createUserDocument(userId, email, fullName, address, storeName, storeAddress);
+                            createUserDocument(userId, email, fullName, address, "", "");
 
                             Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_SHORT).show();
                             finish(); // Optional: Go back to the previous activity

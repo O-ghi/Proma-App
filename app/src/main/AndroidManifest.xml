@@ -53,6 +53,8 @@
         <activity android:name=".AddStoreActivity" />
         <activity android:name=".StorePageActivity" />
         <activity android:name=".ProductPageActivity" />
+        <activity android:name=".OrderProductActivity" />
+        <activity android:name=".CartListActivity" />
 
     </application>
 

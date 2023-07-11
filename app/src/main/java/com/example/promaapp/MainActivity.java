@@ -42,22 +42,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
-        buttonAddProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Switch to the Scan Barcode/QR Code page
-                Intent intent = new Intent(MainActivity.this, ScanBarcodeActivity.class);
-                startActivity(intent);
-            }
-        });
-
         Button buttonAddStore = findViewById(R.id.buttonAddStore);
         buttonAddStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Switch to the Add Store page
-                Intent intent = new Intent(MainActivity.this, AddStoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, StorePageActivity.class);
                 startActivity(intent);
             }
         });

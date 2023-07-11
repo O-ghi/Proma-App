@@ -44,7 +44,7 @@ public class AddProductActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_SELECTION = 4;
 
     private EditText etId, etName, etPrice, etQuantity, etExpiry;
-    private Button btnSelectImage, btnSave;
+    private Button btnSelectImage, btnSave, btnBack;
     private ImageView ivProductImage;
 
     private FirebaseFirestore db;
@@ -65,11 +65,6 @@ public class AddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_product_activity);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Enable back button in the toolbar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -85,6 +80,7 @@ public class AddProductActivity extends AppCompatActivity {
         btnSelectImage = findViewById(R.id.btn_select_image);
         btnSave = findViewById(R.id.btn_save);
         ivProductImage = findViewById(R.id.iv_product_image);
+        btnBack = findViewById(R.id.btn_back);
 
         etId.setText(productIdString);
 
@@ -118,6 +114,12 @@ public class AddProductActivity extends AppCompatActivity {
                 } else {
                     saveProduct(productId, productName, price, quantity, storeId, expiryDate);
                 }
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
