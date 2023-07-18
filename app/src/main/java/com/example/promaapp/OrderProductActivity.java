@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.promaapp.Model.CartList;
@@ -44,7 +45,7 @@ public class OrderProductActivity extends AppCompatActivity {
         btnViewCart = findViewById(R.id.btnViewCart);
 
         productList = new ArrayList<>();
-        productListAdapter = new ProductListAdapter(this, productList);
+        productListAdapter = new ProductListAdapter(this, productList, false);
         lvProductList.setAdapter(productListAdapter);
         String storeId = getIntent().getStringExtra("storeId");
 
@@ -56,6 +57,7 @@ public class OrderProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Switch to ScanBarcodeOrderActivity
                 Intent intent = new Intent(OrderProductActivity.this, ScanBarcodeOrderActivity.class);
+                intent.putExtra("storeId",storeId);
                 startActivity(intent);
             }
         });
@@ -65,6 +67,7 @@ public class OrderProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Switch to CartListActivity
                 Intent intent = new Intent(OrderProductActivity.this, CartListActivity.class);
+                intent.putExtra("storeId",storeId);
                 startActivity(intent);
             }
         });
@@ -107,6 +110,7 @@ public class OrderProductActivity extends AppCompatActivity {
                                 String imageURL = document.getString("image");
                                 String expiry = document.getString("expiry");
                                 Product product = new Product(productId, storeId, productName, productPrice, productQuantity, imageURL, expiry);
+                                product.setAvailableQuantity(productQuantity);
                                 productList.add(product);
                             }
 
@@ -121,25 +125,38 @@ public class OrderProductActivity extends AppCompatActivity {
     }
 
     private void addToCartList(Product product) {
-        // Implement the logic to add the product to the cart list
-        // You can use a data structure or a database to store the cart items
-        // For this example, let's assume there is a CartList class with static methods to manage the cart items
+        if (product.getQuantity() > 0) {
+            // Product is available, add it to the cart list
+            int existingIndex = CartList.getCartItemIndex(product);
 
-        // Check if the product already exists in the cart list
-        int existingIndex = CartList.getCartItemIndex(product);
+            if (existingIndex != -1) {
+                // Product already exists in the cart list, update the quantity
+                Product existingProduct = CartList.getCartItem(existingIndex);
+                existingProduct.setQuantity(existingProduct.getQuantity() + 1); // Add one quantity
+            } else {
+                // Product doesn't exist in the cart list, add it
+                product.setQuantity(1); // Set the quantity to one
+                CartList.addToCart(product);
+            }
 
-        if (existingIndex != -1) {
-            // Product already exists in the cart list, update the quantity
-            Product existingProduct = CartList.getCartItem(existingIndex);
-            existingProduct.setQuantity(existingProduct.getQuantity() + product.getQuantity());
+            // Show success message
+            showSuccessMessage("Product added to cart");
         } else {
-            // Product doesn't exist in the cart list, add it
-            CartList.addToCart(product);
+            // Product is out of stock, show a popup message
+            showOutOfStockPopup(product);
         }
-
-        // Show success message
-        showSuccessMessage("Product added to cart");
     }
+
+    private void showOutOfStockPopup(Product product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Hết Hàng");
+        builder.setMessage(product.getName() + " không còn mặt hàng trong kho");
+        builder.setPositiveButton("Đồng ý", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 
 
     private void showSuccessMessage(String message) {

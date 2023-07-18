@@ -1,17 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CartListActivity">
+    tools:context=".CartListActivity"
+    android:background="@color/white">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="Giỏ hàng"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Giá tiền"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Số lượng"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
     <ListView
         android:id="@+id/lvCartList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:divider="#C6C6C6"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="1dp"
+        android:clipToPadding="false"
+        android:paddingBottom="48dp" />
+    <TextView
+        android:id="@+id/tvTotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="8dp"
+        android:text="Total Price: $0.00" />
+
+    <Button
+        android:id="@+id/btnCreateOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tạo Đơn Hàng"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:backgroundTint="#00BCD4"
+        android:textColor="@android:color/white"
+        android:padding="16dp"
+        android:layout_margin="16dp"/>
 
 </LinearLayout>

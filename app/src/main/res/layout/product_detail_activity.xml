@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imageViewProduct"
         android:layout_marginTop="16dp"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/textViewProductPrice"
@@ -25,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewProductName"
         android:layout_marginTop="8dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/textViewProductQuantity"
@@ -33,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewProductPrice"
         android:layout_marginTop="8dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/textViewProductExpiry"
@@ -41,5 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewProductQuantity"
         android:layout_marginTop="8dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
 </RelativeLayout>

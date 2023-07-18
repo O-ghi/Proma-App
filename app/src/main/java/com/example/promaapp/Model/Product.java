@@ -8,6 +8,11 @@ public class Product {
     private int quantity;
     private String image;
     private String expiry;
+    private int availableQuantity;
+
+    public int getAvailableQuantity() {
+        return availableQuantity;
+    }
 
     public Product() {
         // Empty constructor needed for Firebase Realtime Database
@@ -92,5 +97,9 @@ public class Product {
 
     public void setExpiry(String expiry) {
         this.expiry = expiry;
+    }
+
+    public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
     }
 }

@@ -39,7 +39,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         // Set the product details
         textViewProductName.setText("Tên sản phẩm: " + productName);
-        textViewProductPrice.setText("Giá: " + String.format("Price: $%.2f", productPrice));
+        textViewProductPrice.setText("Giá: " + String.format("%.2f VNĐ", productPrice));
         textViewProductQuantity.setText("Tổng số lượng: " + String.format("Quantity: %d", productQuantity));
         textViewProductExpiry.setText("Hạn sử dụng: " + expiry);
         // Load and display the product image using Picasso

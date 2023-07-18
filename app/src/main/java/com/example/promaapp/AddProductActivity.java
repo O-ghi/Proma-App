@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -224,15 +225,22 @@ public class AddProductActivity extends AppCompatActivity {
                 Bundle extras = data.getExtras();
                 if (extras != null && extras.containsKey("data")) {
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    ivProductImage.setImageBitmap(imageBitmap);
-                    imageUri = getImageUri(imageBitmap);
+
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+                    Bitmap rotatedBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                    ivProductImage.setImageBitmap(rotatedBitmap);
+                    imageUri = getImageUri(rotatedBitmap);
                 }
             } else if (requestCode == REQUEST_IMAGE_SELECTION && data != null) {
                 Uri selectedImageUri = data.getData();
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    ivProductImage.setImageBitmap(imageBitmap);
-                    imageUri = selectedImageUri;
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+                    Bitmap rotatedBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                    ivProductImage.setImageBitmap(rotatedBitmap);
+                    imageUri = getImageUri(rotatedBitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -55,6 +55,7 @@
         <activity android:name=".ProductPageActivity" />
         <activity android:name=".OrderProductActivity" />
         <activity android:name=".CartListActivity" />
+        <activity android:name=".OrderHistoryActivity" />
 
     </application>
 

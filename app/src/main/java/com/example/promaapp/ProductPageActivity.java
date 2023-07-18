@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,18 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.promaapp.Model.Product;
 import com.example.promaapp.Model.ProductListAdapter;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -42,13 +27,11 @@ import java.util.List;
 
 public class ProductPageActivity extends AppCompatActivity {
 
-    private ListView lvProductList;
+    private GridView gvProductList;
     private List<Product> productList;
     private ProductListAdapter productListAdapter;
     private FirebaseFirestore firestore;
     private Button btnAddProduct;
-    private TableLayout tableStatistics;
-    private BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +39,15 @@ public class ProductPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_page);
 
         firestore = FirebaseFirestore.getInstance();
-        lvProductList = findViewById(R.id.lvProductList);
-        tableStatistics = findViewById(R.id.tableStatistics);
+        gvProductList = findViewById(R.id.gvProductList);
         btnAddProduct = findViewById(R.id.btnAddProduct);
-        barChart = findViewById(R.id.barChart);
 
         // Retrieve the store ID from the intent
         String storeId = getIntent().getStringExtra("storeId");
 
         productList = new ArrayList<>();
-        productListAdapter = new ProductListAdapter(this, productList);
-        lvProductList.setAdapter(productListAdapter);
+        productListAdapter = new ProductListAdapter(this, productList, false);
+        gvProductList.setAdapter(productListAdapter);
 
         // Retrieve products for the specified store ID
         retrieveProductsForStore(storeId);
@@ -82,7 +63,7 @@ public class ProductPageActivity extends AppCompatActivity {
         });
 
         // Handle item click on the product list
-        lvProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gvProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected product
@@ -127,60 +108,16 @@ public class ProductPageActivity extends AppCompatActivity {
                                 productList.add(product);
                             }
 
-                            // Update the table statistics
-                            updateTableStatistics();
-
                             // Sort the product list by expiry
                             sortProductListByExpiry();
 
                             productListAdapter.notifyDataSetChanged();
-
-                            // Update the bar chart
-                            updateBarChart();
                         } else {
                             // No products found for the store
                             Toast.makeText(ProductPageActivity.this, "No products found for the store", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
-    private void updateTableStatistics() {
-        // Clear existing table rows
-        tableStatistics.removeAllViews();
-
-        // Create a new row for the headers
-        TableRow headerRow = new TableRow(this);
-        headerRow.setBackgroundColor(getResources().getColor(R.color.lightGrey));
-
-        TextView headerProductName = new TextView(this);
-        headerProductName.setText("Product Name");
-        headerProductName.setPadding(10, 10, 10, 10);
-        headerRow.addView(headerProductName);
-
-        TextView headerTotalQuantity = new TextView(this);
-        headerTotalQuantity.setText("Total Quantity");
-        headerTotalQuantity.setPadding(10, 10, 10, 10);
-        headerRow.addView(headerTotalQuantity);
-
-        tableStatistics.addView(headerRow);
-
-        // Calculate the total quantity for each product
-        for (Product product : productList) {
-            TableRow row = new TableRow(this);
-
-            TextView productName = new TextView(this);
-            productName.setText(product.getName());
-            productName.setPadding(10, 10, 10, 10);
-            row.addView(productName);
-
-            TextView totalQuantity = new TextView(this);
-            totalQuantity.setText(String.valueOf(product.getQuantity()));
-            totalQuantity.setPadding(10, 10, 10, 10);
-            row.addView(totalQuantity);
-
-            tableStatistics.addView(row);
-        }
     }
 
     private void sortProductListByExpiry() {
@@ -201,46 +138,5 @@ public class ProductPageActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-
-    private void updateBarChart() {
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        ArrayList<String> xAxisLabels = new ArrayList<>();
-
-        for (int i = 0; i < productList.size(); i++) {
-            Product product = productList.get(i);
-            int quantity = product.getQuantity();
-            barEntries.add(new BarEntry(i, quantity));
-            xAxisLabels.add(product.getName());
-        }
-
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Product Quantity");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(getResources().getColor(android.R.color.black));
-
-        BarData barData = new BarData(barDataSet);
-        barData.setBarWidth(0.5f);
-
-        barChart.setData(barData);
-        barChart.getDescription().setEnabled(false);
-        barChart.setFitBars(true);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabels));
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-
-        YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setGranularity(1f);
-        leftAxis.setGranularityEnabled(true);
-
-        YAxis rightAxis = barChart.getAxisRight();
-        rightAxis.setGranularity(1f);
-        rightAxis.setGranularityEnabled(true);
-
-        barChart.animateY(1000);
-        barChart.invalidate();
     }
 }

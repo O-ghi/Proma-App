@@ -34,7 +34,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:hint="Password"
+        android:hint="Mật Khẩu"
         android:inputType="textPassword"
         android:maxLines="1"
         android:textColor="@color/black"

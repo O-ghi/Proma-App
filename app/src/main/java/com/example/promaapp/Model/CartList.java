@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CartList {
     private static List<Product> cartItems = new ArrayList<>();
+    private static double totalPrice = 0.0;
 
     public static void addToCart(Product product) {
         // Check if the product already exists in the cart list
@@ -45,5 +46,13 @@ public class CartList {
 
     public static Product getCartItem(int index) {
         return cartItems.get(index);
+    }
+
+    public static double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public static void setTotalPrice(double totalPrice) {
+        CartList.totalPrice = totalPrice;
     }
 }
