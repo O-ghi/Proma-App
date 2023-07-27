@@ -95,7 +95,7 @@ public class CartListActivity extends AppCompatActivity {
         Order order = new Order(orderId, productList, totalPrice, storeId, createDate);
 
         // Create a new document reference with a unique ID
-        DocumentReference orderRef = db.collection("orders").document();
+        DocumentReference orderRef = db.collection("orders").document(String.valueOf(orderId));
 
         // Create a map to store the order data
         Map<String, Object> orderData = new HashMap<>();

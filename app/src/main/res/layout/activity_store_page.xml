@@ -50,40 +50,7 @@
         android:visibility="visible"
         app:backgroundTint="#2196F3" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/tvTitle">
 
-        <TextView
-            android:id="@+id/tvTotalRevenue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/btnSelectDateRange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Date Range"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_marginTop="16dp" />
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chartOrder"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:visibility="gone" />
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/btnProductPage"
@@ -129,5 +96,52 @@
         app:backgroundTint="#2196F3"
         android:visibility="gone"
         android:layout_below="@id/btnOrderPage" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/btnOrderPage">
+
+        <EditText
+            android:id="@+id/FromDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/ToDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date" />
+        <TextView
+            android:id="@+id/tvTotalRevenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chartOrder"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible" >
+
+        </com.github.mikephil.charting.charts.BarChart>
+
+    </LinearLayout>
 
 </RelativeLayout>

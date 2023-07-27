@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white"
+    app:backgroundTint="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chỉnh sửa thông tin"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:textColorHint="#555555"
+
+        app:backgroundTint="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên Sản Phẩm"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="#555555"
+
+        app:backgroundTint="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextProductPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá tiền"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textColorHint="#555555"
+
+        app:backgroundTint="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextProductQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số lượng"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textColorHint="#555555"
+        app:backgroundTint="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextProductExpiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hạn sử dụng"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        android:textColor="@color/black"
+        android:textColorHint="#555555"
+
+        app:backgroundTint="@color/black"/>
+
+    <Button
+        android:id="@+id/buttonSaveChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:layout_gravity="center"
+        app:backgroundTint="#2196F3"/>
+
+</LinearLayout>
