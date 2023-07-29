@@ -70,7 +70,7 @@
         android:id="@+id/buttonSaveChanges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Changes"
+        android:text="Lưu Thay Đổi"
         android:layout_gravity="center"
         app:backgroundTint="#2196F3"/>
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,12 +58,12 @@ public class StorePageActivity extends AppCompatActivity {
     private Button btnProductPage; // Button for switching to Product Page
     private Button btnOrderPage; // Button for switching to Order Page
     private Button btnOrderHistory;
+    private LinearLayout barChartLayout;
     private TextView tvTotalRevenue;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private String storeId; // Store ID to be passed to Product Page
     private OrderListAdapter orderListAdapter;
-    private float totalRevenue;
     private List<Order> orderList;
 
     private BarChart chartOrder;
@@ -88,10 +89,10 @@ public class StorePageActivity extends AppCompatActivity {
         btnProductPage = findViewById(R.id.btnProductPage);
         btnOrderPage = findViewById(R.id.btnOrderPage);
         btnOrderHistory = findViewById(R.id.btnOrderHistory);
-        tvTotalRevenue = findViewById(R.id.tvTotalRevenue);
         chartOrder = findViewById(R.id.chartOrder);
         fromDateEditText = findViewById(R.id.FromDate);
         toDateEditText = findViewById(R.id.ToDate);
+        barChartLayout = findViewById(R.id.barChartLayout);
         orderList = new ArrayList<>();
 
         orderListAdapter = new OrderListAdapter(this, orderList);
@@ -108,6 +109,7 @@ public class StorePageActivity extends AppCompatActivity {
                 calendar.get(Calendar.MONTH) + 1, // Months are 0-indexed, so add 1
                 calendar.get(Calendar.YEAR));
         fromDateEditText.setText(thirtyDaysAgo);
+        retrieveOrderHistory(thirtyDaysAgo, currentDate);
         fromDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,6 +230,7 @@ public class StorePageActivity extends AppCompatActivity {
                         btnProductPage.setVisibility(View.VISIBLE);
                         btnOrderPage.setVisibility(View.VISIBLE);
                         btnOrderHistory.setVisibility(View.VISIBLE);
+                        barChartLayout.setVisibility(View.VISIBLE);
                     } else {
                         tvNoStore.setVisibility(View.VISIBLE);
                         btnAddStore.setVisibility(View.VISIBLE);
@@ -235,6 +238,8 @@ public class StorePageActivity extends AppCompatActivity {
                         btnProductPage.setVisibility(View.GONE);
                         btnOrderPage.setVisibility(View.GONE);
                         btnOrderHistory.setVisibility(View.GONE);
+                        barChartLayout.setVisibility(View.GONE);
+
                     }
                 });
     }
@@ -299,48 +304,38 @@ public class StorePageActivity extends AppCompatActivity {
                 entries.add(new BarEntry(i, totalPrice));
             }
         }
+        BarChart chartOrder = findViewById(R.id.chartOrder); // Find the BarChart view by its ID
 
         if (entries.isEmpty()) {
+            chartOrder.setNoDataText("Không có đơn hàng nào trong khoảng thời gian này");
             return;
         }
 
-        BarDataSet dataSet = new BarDataSet(entries, "Order Amounts");
+        BarDataSet dataSet = new BarDataSet(entries, "Tổng Tiền");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS); // Customize the bar color
 
         BarData barData = new BarData(dataSet);
 
-        BarChart chartOrder = findViewById(R.id.chartOrder); // Find the BarChart view by its ID
         chartOrder.setData(barData);
-        chartOrder.animateY(5000);
-        Description chartDescription = new Description();
-        chartDescription.setText("Order Amounts");
-        chartDescription.setTextSize(12f);
-        chartDescription.setTextColor(Color.BLACK);
-
-
-
-        chartOrder.setDescription(chartDescription);
-
         // Customize the appearance of the chart
+        chartOrder.getXAxis().setLabelCount(entries.size() );
         chartOrder.getXAxis().setValueFormatter(new IndexAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float value) {
+            public String getFormattedValue(float value ) {
                 // You can customize X-axis labels here, e.g., use order dates as labels
-                return "Order " + (int) value;
+                int index = (int) value;
+                if (index >= 0 && index < orderList.size()) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+                    String createDate = dateFormat.format(orderList.get(index).getCreateDate());
+                    return createDate;
+                }
+                return "";
             }
         });
-
-        chartOrder.getAxisLeft().setValueFormatter(new DefaultValueFormatter(2)); // Format Y-axis labels to two decimal places
-
-        // Hide the grid lines
-        chartOrder.getXAxis().setDrawGridLines(false);
-        chartOrder.getAxisLeft().setDrawGridLines(false);
-        chartOrder.getAxisRight().setDrawGridLines(false);
-
-        // Customize the legend
-        Legend legend = chartOrder.getLegend();
-        legend.setEnabled(false);
-
+        chartOrder.getXAxis().setAxisMaximum(barData.getXMax() + 0.5f);
+        chartOrder.getXAxis().setAxisMinimum(barData.getXMin() - 0.5f);
+        chartOrder.getAxisRight().setEnabled(false);
+        chartOrder.getDescription().setEnabled(false);
         chartOrder.invalidate();
     }
 
