@@ -3,6 +3,7 @@ package com.example.promaapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class CartListActivity extends AppCompatActivity {
         btnCreateOrder = findViewById(R.id.btnCreateOrder); // Add the "Create Order" button
 
         cartList = new ArrayList<>();
-        cartListAdapter = new ProductListAdapter(this, cartList, true);
+        cartListAdapter = new ProductListAdapter(this, cartList, true,false);
         lvCartList.setAdapter(cartListAdapter);
 
         // Retrieve the cart items from the CartList class
@@ -123,6 +124,13 @@ public class CartListActivity extends AppCompatActivity {
 
                         // Show a success message or navigate to the order details screen
                         Toast.makeText(CartListActivity.this, "Order created successfully!", Toast.LENGTH_SHORT).show();
+                        // Navigate back to OrderProductActivity
+                        Intent intent = new Intent(CartListActivity.this, OrderProductActivity.class);
+                        // Make sure to pass the storeId back to OrderProductActivity
+                        intent.putExtra("storeId", getIntent().getStringExtra("storeId"));
+                        startActivity(intent);
+                        // Finish the current activity to remove it from the stack
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.promaapp.OrderDetailActivity;
 import com.example.promaapp.R;
 
 import java.util.List;
@@ -20,16 +21,18 @@ public class ProductListAdapter extends BaseAdapter {
     private Context context;
     private List<Product> productList;
     private boolean isCartList;
+    private boolean isOrderDetail;
     private OnQuantityChangeListener quantityChangeListener;
 
     public interface OnQuantityChangeListener {
         void onQuantityChanged(int position, int quantity);
     }
 
-    public ProductListAdapter(Context context, List<Product> productList, boolean isCartList) {
+    public ProductListAdapter(Context context, List<Product> productList, boolean isCartList, boolean isOrderDetail) {
         this.context = context;
         this.productList = productList;
         this.isCartList = isCartList;
+        this.isOrderDetail = isOrderDetail;
     }
 
     public void setOnQuantityChangeListener(OnQuantityChangeListener listener) {
@@ -58,9 +61,13 @@ public class ProductListAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             if (isCartList) {
+                Toast.makeText(context, "context " +context.getClass().getName(), Toast.LENGTH_SHORT).show();
                 convertView = LayoutInflater.from(context).inflate(R.layout.cart_item, parent, false);
-                viewHolder.btnDecreaseQuantity = convertView.findViewById(R.id.btnDecreaseQuantity);
-                viewHolder.btnIncreaseQuantity = convertView.findViewById(R.id.btnIncreaseQuantity);
+
+                    viewHolder.btnDecreaseQuantity = convertView.findViewById(R.id.btnDecreaseQuantity);
+                    viewHolder.btnIncreaseQuantity = convertView.findViewById(R.id.btnIncreaseQuantity);
+
+
                 viewHolder.tvTotalPrice = convertView.findViewById(R.id.totalPriceTextView);
 
             } else {
@@ -85,11 +92,16 @@ public class ProductListAdapter extends BaseAdapter {
         if (isCartList) {
             viewHolder.tvProductQuantity.setText(String.valueOf(product.getQuantity()));
             viewHolder.tvProductPrice.setText(String.format("%.2f VNĐ", product.getPrice()));
-
+        if(isOrderDetail) {
+            viewHolder.btnDecreaseQuantity.setVisibility(View.GONE);
+            viewHolder.btnIncreaseQuantity.setVisibility(View.GONE);
+            } else {
             viewHolder.btnDecreaseQuantity.setVisibility(View.VISIBLE);
             viewHolder.btnIncreaseQuantity.setVisibility(View.VISIBLE);
+        }
+
             double totalPrice = product.getPrice() * product.getQuantity();
-            viewHolder.tvTotalPrice.setText(String.format("$%.2f VNĐ", totalPrice));
+            viewHolder.tvTotalPrice.setText(String.format("%.2f VNĐ", totalPrice));
             viewHolder.btnDecreaseQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

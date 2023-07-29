@@ -1,7 +1,10 @@
 package com.example.promaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,6 +48,22 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
         // Retrieve the order history from Firestore
         retrieveOrderHistory();
+
+        lvOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected order
+                Order selectedOrder = orderList.get(position);
+
+                // Pass the order information to OrderDetailActivity
+                Intent intent = new Intent(OrderHistoryActivity.this, OrderDetailActivity.class);
+                intent.putExtra("orderId", selectedOrder.getOrderId());
+                intent.putExtra("totalPrice", selectedOrder.getTotalPrice());
+                intent.putExtra("productList", (ArrayList<Product>) selectedOrder.getProductList());
+                intent.putExtra("storeId", selectedOrder.getStoreId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void retrieveOrderHistory() {

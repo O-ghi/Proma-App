@@ -1,5 +1,7 @@
 package com.example.promaapp.Model;
 
+import java.util.Map;
+
 public class Product {
     private String id;
     private String storeId;
@@ -101,5 +103,16 @@ public class Product {
 
     public void setAvailableQuantity(int availableQuantity) {
         this.availableQuantity = availableQuantity;
+    }
+    public static Product fromHashMap(Map<String, Object> productMap) {
+        String id = (String) productMap.get("id");
+        String storeId = (String) productMap.get("storeId");
+        String name = (String) productMap.get("name");
+        double price = (Double) productMap.get("price");
+        int quantity = ((Long) productMap.get("quantity")).intValue();
+        String image = (String) productMap.get("image");
+        String expiry = (String) productMap.get("expiry");
+        Product product = new Product(id, storeId, name, price, quantity, image, expiry);
+        return product;
     }
 }

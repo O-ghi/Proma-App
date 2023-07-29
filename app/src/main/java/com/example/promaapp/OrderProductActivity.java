@@ -45,7 +45,7 @@ public class OrderProductActivity extends AppCompatActivity {
         btnViewCart = findViewById(R.id.btnViewCart);
 
         productList = new ArrayList<>();
-        productListAdapter = new ProductListAdapter(this, productList, false);
+        productListAdapter = new ProductListAdapter(this, productList, false,false);
         lvProductList.setAdapter(productListAdapter);
         String storeId = getIntent().getStringExtra("storeId");
 

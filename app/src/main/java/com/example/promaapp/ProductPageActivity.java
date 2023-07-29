@@ -46,7 +46,7 @@ public class ProductPageActivity extends AppCompatActivity {
         String storeId = getIntent().getStringExtra("storeId");
 
         productList = new ArrayList<>();
-        productListAdapter = new ProductListAdapter(this, productList, false);
+        productListAdapter = new ProductListAdapter(this, productList, false,false);
         gvProductList.setAdapter(productListAdapter);
 
         // Retrieve products for the specified store ID
