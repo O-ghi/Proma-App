@@ -183,7 +183,7 @@ public class StorePageActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            boolean isPaid = document.getBoolean("isPaid");
+                            boolean isPaid = document.getBoolean("paid");
                             if (isPaid) {
                                 retrieveStoreInfo(accountId);
                             } else {

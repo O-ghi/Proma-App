@@ -37,6 +37,14 @@ public class Account {
         this.email = email;
     }
 
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
     public String getFullName() {
         return fullName;
     }

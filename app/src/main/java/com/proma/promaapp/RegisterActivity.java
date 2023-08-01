@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             String userId = mAuth.getCurrentUser().getUid();
                             // Create a new user document in Firestore
-                            createUserDocument(userId, email, fullName, address, "", "");
+                            createUserDocument(userId, email, fullName, address, "", "", false);
 
                             Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                             finish(); // Optional: Go back to the previous activity
@@ -105,10 +105,10 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    private void createUserDocument(String userId, String email, String fullName, String address, String storeName, String storeAddress) {
+    private void createUserDocument(String userId, String email, String fullName, String address, String storeName, String storeAddress, boolean isPaid) {
         // Create a new User document in the "users" collection
-        Account user = new Account(userId, email, fullName, address, storeName, storeAddress, false);
-        db.collection("users").document(userId)
+        Account user = new Account(userId, email, fullName, address, storeName, storeAddress, isPaid);
+        db.collection("Account").document(userId)
                 .set(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

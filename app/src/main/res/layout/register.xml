@@ -24,7 +24,9 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="Email"
+            android:textColorHint="#4A4A4A"
+            android:textColor="@color/black"/>
 
         <!-- Password EditText -->
         <EditText
@@ -32,6 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu"
+            android:textColorHint="#4A4A4A"
+            android:textColor="@color/black"
             android:inputType="textPassword" />
 
         <!-- Confirm Password EditText -->
@@ -40,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Xác nhận mật khẩu"
+            android:textColorHint="#4A4A4A"
+            android:textColor="@color/black"
             android:inputType="textPassword" />
 
         <!-- FullName EditText -->
@@ -47,6 +53,8 @@
             android:id="@+id/editTextFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#4A4A4A"
+            android:textColor="@color/black"
             android:hint="Họ Tên" />
 
         <!-- Address EditText -->
@@ -54,6 +62,8 @@
             android:id="@+id/editTextAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#4A4A4A"
+            android:textColor="@color/black"
             android:hint="Địa chỉ" />
 
         <!-- Store Name EditText -->

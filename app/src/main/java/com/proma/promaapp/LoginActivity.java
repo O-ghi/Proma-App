@@ -13,19 +13,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.proma.promaapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.Task;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -101,6 +100,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void loginUser(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            // Email or password is empty, show an error message
+            Toast.makeText(this, "Hãy nhập đầy đủ Email và mật khẩu", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -121,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                 });
     }
+
 
     private void signInWithGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -188,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("fullName", fullName);
                             userData.put("email", email);
-                            userData.put("isPaid", false); // Set default value for isPaid
+                            userData.put("paid", false); // Set default value for isPaid
 
                             userRef.set(userData)
                                     .addOnSuccessListener(aVoid -> {
