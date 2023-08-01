@@ -16,12 +16,12 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.PromaApp"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.proma.promaapp.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,35 +29,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name="com.proma.promaapp.MainActivity"/>
         <activity
-            android:name=".UserActivity"
+            android:name="com.proma.promaapp.UserActivity"
             android:label="User Activity">
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.proma.promaapp.RegisterActivity"
             android:label="Register Page">
         </activity>
         <activity
-            android:name=".ScanBarcodeActivity"
+            android:name="com.proma.promaapp.ScanBarcodeActivity"
             android:label="Register Page">
         </activity>
         <activity
-            android:name=".ProductDetailActivity"
+            android:name="com.proma.promaapp.ProductDetailActivity"
             android:label="Register Page">
         </activity>
         <activity
-            android:name=".AddProductActivity"
+            android:name="com.proma.promaapp.AddProductActivity"
             android:label="Register Page">
         </activity>
-        <activity android:name=".AddStoreActivity" />
-        <activity android:name=".StorePageActivity" />
-        <activity android:name=".ProductPageActivity" />
-        <activity android:name=".OrderProductActivity" />
-        <activity android:name=".CartListActivity" />
-        <activity android:name=".OrderHistoryActivity" />
-        <activity android:name=".EditProductActivity" />
-        <activity android:name=".OrderDetailActivity" />
+        <activity android:name="com.proma.promaapp.AddStoreActivity" />
+        <activity android:name="com.proma.promaapp.StorePageActivity" />
+        <activity android:name="com.proma.promaapp.ProductPageActivity" />
+        <activity android:name="com.proma.promaapp.OrderProductActivity" />
+        <activity android:name="com.proma.promaapp.CartListActivity" />
+        <activity android:name="com.proma.promaapp.OrderHistoryActivity" />
+        <activity android:name="com.proma.promaapp.EditProductActivity" />
+        <activity android:name="com.proma.promaapp.OrderDetailActivity" />
+        <activity android:name="com.proma.promaapp.ScanBarcodeOrderActivity" />
 
     </application>
 

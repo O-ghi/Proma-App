@@ -4,14 +4,14 @@ plugins {
     id 'com.google.gms.google-services'
 }
 android {
-    namespace 'com.example.promaapp'
+    namespace 'com.proma.promaapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.promaapp"
+        applicationId "com.proma.promaapp"
         minSdk 24
         targetSdk 33
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

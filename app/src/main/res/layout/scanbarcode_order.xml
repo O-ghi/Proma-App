@@ -15,20 +15,25 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Cart"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#2196F3" />
 
         <Button
             android:id="@+id/btnProductList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Product"
+            android:text="Quét"
+            android:layout_gravity="center"
             android:backgroundTint="#2196F3" />
+        <Button
+            android:id="@+id/btnCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#2196F3"
+            android:gravity="center"
+            android:text="Giỏ hàng" />
+
+
 
     </LinearLayout>
 

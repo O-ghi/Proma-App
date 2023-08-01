@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -9,17 +9,17 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".StorePageActivity">
+    tools:context="com.proma.promaapp.StorePageActivity">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:textColor="@color/black"
-        android:layout_marginBottom="16dp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/barChartLayout"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,6 +71,16 @@
             android:visibility="visible">
 
         </com.github.mikephil.charting.charts.BarChart>
+        <TextView
+            android:id="@+id/tvNearlyExpiredCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"/>
+
 
     </LinearLayout>
 
@@ -78,12 +88,12 @@
         android:id="@+id/tvNoStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
         android:gravity="center"
         android:text="Bạn chưa có cửa hàng nào."
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:visibility="gone"
-        android:layout_below="@id/tvTitle" />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnAddStore"
@@ -100,14 +110,14 @@
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         app:backgroundTint="#2196F3" />
 
 
     <Button
         android:id="@+id/btnProductPage"
         android:layout_width="239dp"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/barChartLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
@@ -116,39 +126,48 @@
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="bold"
+
         android:visibility="gone"
-        app:backgroundTint="#2196F3" />
+        app:backgroundTint="#2196F3"
+        app:icon="@drawable/baseline_store_24"
+        app:iconSize="50dp"
+        app:iconTint="#FFFFFF" />
 
     <Button
         android:id="@+id/btnOrderPage"
         android:layout_width="239dp"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnProductPage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:background="@drawable/login_button_background"
         android:text="Trang Đơn Hàng"
         android:textColor="@color/white"
-        android:background="@drawable/login_button_background"
-        android:textStyle="bold"
         android:textSize="20dp"
-        app:backgroundTint="#2196F3"
+        android:textStyle="bold"
         android:visibility="gone"
-        android:layout_below="@id/btnProductPage" />
+        app:backgroundTint="#2196F3"
+        app:icon="@drawable/baseline_shopping_cart_24"
+        app:iconSize="50dp"
+        app:iconTint="#FFFFFF" />
 
     <Button
         android:id="@+id/btnOrderHistory"
         android:layout_width="239dp"
-        android:layout_height="66dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnOrderPage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:background="@drawable/login_button_background"
         android:text="Lịch Sử Đơn Hàng"
         android:textColor="@color/white"
-        android:background="@drawable/login_button_background"
-        android:textStyle="bold"
         android:textSize="20dp"
-        app:backgroundTint="#2196F3"
+        android:textStyle="bold"
         android:visibility="gone"
-        android:layout_below="@id/btnOrderPage" />
-
+        app:backgroundTint="#2196F3"
+        app:icon="@drawable/baseline_history_edu_24"
+        app:iconSize="50dp"
+        app:iconTint="#FFFFFF" />
 
 
 </RelativeLayout>

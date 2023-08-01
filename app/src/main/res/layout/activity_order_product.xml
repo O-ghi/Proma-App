@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".OrderProductActivity"
+    tools:context="com.proma.promaapp.OrderProductActivity"
     android:background="@color/white">
 
     <TextView
@@ -17,13 +17,19 @@
         android:textStyle="bold"
         android:gravity="center" />
 
-    <ListView
-        android:id="@+id/lvProductList"
+    <GridView
+        android:id="@+id/gvProductList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/titleTextView"
-        android:divider="#C6C6C6"
-        android:dividerHeight="1dp" />
+        android:numColumns="2"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarSize="4dp"
+        android:dividerHeight="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
